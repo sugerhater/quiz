@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -8,31 +9,38 @@
     <link rel="stylesheet" src="assets/style.css">
 
 </head>
+
 <body>
     <!-- question part -->
-    <div class="container">
-    <div id="question-part">
-          <h1 class = "" id = "questions">Coding Quit Challenge</h1>
-          <p id = "intro"></p>
-    </div>
-    <hr>
+    <header>
+        <div id = "highscore" style="text-align: left; float: left">high score</div>
+        <p id = "timer" style ="text-align:right">Time:0</p>
+    </header>
 
+    <div class="container mx-auto">
+        <div id="question-part">
+            <h1 class="" style= " text-align:center" id="question-title">Coding Quit Challenge</h1>
+            <p id="intro" style= "text-align: center">try to answer the following code-related questions with the time limit. Keep in mind that incorrect answer will penalize your scoretime by ten seconds!</p>
+        </div>
+        <hr>
+        <button class= "mx-auto"id = "start" style= "text-align:center; align-self: center;">Start Quiz</button>
 
-    <!-- options part -->
-    <div class="row">
-        <ol class="col-sm-12 col-lg-11 bg-secondary mb-4" id = "options">
-            <!-- <button>start quiz!</button> -->
-            <li><button  id = "option1"> 11111111 </button></li>
+        <!-- options part -->
+        <div class="row">
+            <ol class="col-sm-12 col-lg-11 bg-secondary mb-4" id="question-options">
+                <!-- <button>start quiz!</button> -->
+                <!-- <li><button  id = "option1"> 11111111 </button></li>
             <li class = "btn btn-primary mr-auto" id = "option1">1</li>
             <li class = "btn btn-primary" id = "option1">1</li>
             <li class = "btn btn-primary" id = "option1">2</li>
             <li class = "btn btn-primary" id = "option1">3</li>
-            <li class = "btn btn-primary" id = "option1">4</li>
-            
-        </ol>
-      </div>
+            <li class = "btn btn-primary" id = "option1">4</li> -->
 
-    </div>    
+            </ol>
+        </div>
+
+    </div>
     <script src="assets/script.js"></script>
 </body>
+
 </html>

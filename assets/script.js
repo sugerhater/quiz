@@ -82,13 +82,13 @@ function startQuiz() {
             if (questions[currentQuestionIndex].answer === event.target.innerText) {
                 console.log("right answer");
                 currentQuestionIndex++;
-
                 renderQuestion();
             }
             else {
                 console.log("wrong answer");
                 currentQuestionIndex++;
-
+                
+                totalTime -=10;
                 renderQuestion();
             }
             // currentQuestionIndex++;
@@ -97,6 +97,8 @@ function startQuiz() {
 }
 
 function allDone() {
+    clearInterval(gameTimerInterval);
+    timerEl.textContent = "Time:0";
     console.log("quiz finished");
     questionOptionsEl.innerHTML = "";
     questionTitleEl.textContent = "All done!"

@@ -1,9 +1,30 @@
 //set var
-
 var introEl = document.getElementById("intro");
 var questionPartEl = document.getElementById("question-part");
 var questionTitleEl = document.getElementById("question-title");
 var questionOptionsEl = document.getElementById("question-options");
+questionOptionsEl.addEventListener("click", function (event) {
+    if (event.target.matches("button")) {
+        console.log("button is clicked")
+        if (questions[currentQuestionIndex].answer === event.target.innerText) {
+            console.log("right answer");
+            currentQuestionIndex++;
+            renderQuestion();
+        }
+        else {
+            console.log("wrong answer");
+            currentQuestionIndex++;
+
+            totalTime -= 10;
+            renderQuestion();
+        }
+        // currentQuestionIndex++;
+    }
+})
+
+// var highScoreButton = document.getElementById("highscore");
+// highScoreButton.addEventListener("click",showScore);
+
 var headerEl = document.getElementsByTagName("header");
 var questions = [{
     title: "Commonly used data types DO NOT include:",
@@ -37,7 +58,8 @@ var questions = [{
 
 ];
 var formEl = document.getElementById("form");
-formEl.style.display="none";
+formEl.style.display = "none";
+
 var choices = [["strings", "booleans", "alerts", "numbers"],
 ["quotes", "curly brackets", "parenthesis", "square brackets"],
 ["numbers and strings", "other arrays", "booleans", "all of the above"],
@@ -48,159 +70,55 @@ var timeElapsed = 0;
 var totalTime = 100;
 var gameTimerInterval;
 var startButton = document.getElementById("start");
-var goBackButton =document.getElementById("goback");
+
+var goBackButton = document.getElementById("goback");
+goBackButton.style.display = "none";
+goBackButton.addEventListener("click", start);
+
 var clearScoreButton = document.getElementById("clearscores");
+clearScoreButton.style.display = "none";
+clearScoreButton.addEventListener("click", clearHighScore);
+
 var timerEl = document.getElementById("timer");
 var submitButton = document.getElementById("submit");
+submitButton.addEventListener("click", submitScore);
+
 var initialInput = document.querySelector("#inputinitial");
 var userInitial;
 var scores = document.getElementById("scores");
 
-goBackButton.style.display="none";
-
-goBackButton.addEventListener("click", start);
-
-
-clearScoreButton.style.display="none";
-
-clearScoreButton.addEventListener("click", clearHighScore);
-
 function start() {
-    scores.style.display="none"
+    questionTitleEl.innerHTML = "Coding Quit Challenge";
+    introEl.innerHTML = "Try to answer the following code-related questions with the time limit. Keep in mind that incorrect answer will penalize your scoretime by ten seconds!"
+    scores.style.display = "none"
     introEl.style.display = "block";
     startButton.style.display = "block";
-    goBackButton.style.display="none";
-    clearScoreButton.style.display="none";    
+    goBackButton.style.display = "none";
+    clearScoreButton.style.display = "none";
     console.log("start")
     questionOptionsEl.innerHTML = "";
-
     // intro.setAttribute("align", "center")
     // questionPartEl.appendChild(intro);
-
     startButton.addEventListener("click", startQuiz)
 };
 
 function startQuiz() {
     console.log("starQuiz");
-    currentQuestionIndex=0;
+    currentQuestionIndex = 0;
     // currentQuestionIndex = 0;
     introEl.style.display = "none";
     startButton.style.display = "none";
-    formEl.style.display= "none";
-    totalTime= 100;
+    formEl.style.display = "none";
+    totalTime = 100;
     clearInterval(gameTimerInterval);
-    gameTimerInterval = setInterval(function(){
+    gameTimerInterval = setInterval(function () {
         console.log(totalTime);
         timerEl.textContent = "Time:" + totalTime;
         totalTime--;
-    },1000);
-    // initiate the timer.
+    }, 1000);
     renderQuestion();
-    // set the event listener for our question options (answers)
-    questionOptionsEl.addEventListener("click", function (event) {
-        if (event.target.matches("button")) {
-            console.log("button is clicked")
-            if (questions[currentQuestionIndex].answer === event.target.innerText) {
-                console.log("right answer");
-                currentQuestionIndex++;
-                renderQuestion();
-            }
-            else {
-                console.log("wrong answer");
-                currentQuestionIndex++;
-                
-                totalTime -=10;
-                renderQuestion();
-            }
-            // currentQuestionIndex++;
-        }
-    })
 }
 
-function allDone() {
-    formEl.style.display= "block";
-    clearInterval(gameTimerInterval);
-    timerEl.textContent = "Time:0";
-    console.log("quiz finished");
-    questionOptionsEl.innerHTML = "";
-    questionTitleEl.textContent = "All done!"
-    //Min score set to 0.
-    if (totalTime<0){
-        totalTime = 0
-    }
-    introEl.textContent = "Your final socre is " + totalTime + "/100.";
-    introEl.style.display = "block";
-
-}
-
-submitButton.addEventListener("click", submitScore);
-
-function submitScore(event) {
-    event.preventDefault();
-
-    goBackButton.style.display="block";
-    clearScoreButton.style.display="block";
-
-    console.log("clicked submit button.");
-    questionTitleEl.innerHTML="Hightscores";
-    introEl.innerHTML="";
-
-    userInitial= initialInput.value.trim();
-    console.log(userInitial);
-
-    saveScore();
-
-
-    showScore();
-}
-
-
-function saveScore() {
-    var savedScore = localStorage.getItem("storagedScores");
-    var savedScoreArray;
-    if (savedScore === null){
-        savedScoreArray = [];
-    }
-    else{
-        savedScoreArray = JSON.parse(savedScore);
-
-    }
-    var currentScore = {
-        initial:initialInput.value.trim(),
-        score:totalTime
-    }
-    console.log(currentScore);
-    console.log(savedScoreArray);
-    savedScoreArray.push(currentScore);
-    var savedScoreArrayString = JSON.stringify(savedScoreArray);
-    window.localStorage.setItem("storagedScores", savedScoreArrayString);
-    initialInput.value = "";
-
-}
-
-function showScore() {
-    scores.style.display="block"
-
-    var savedScore = localStorage.getItem("storagedScores");
-    var savedScoreArray;
-    savedScoreArray = JSON.parse(savedScore);
-    formEl.style.display= "none";
-    // scores.innerHTML= "";
-    console.log("showScore");
-    console.log(savedScoreArray);
-    for(var i = 0;i < savedScoreArray.length; i++){
-        var scoreEl = document.createElement("li");
-        scoreEl.textContent= savedScoreArray[i].initial + ": score "+ savedScoreArray[i].score;
-        console.log(scoreEl);
-        console.log(savedScoreArray[i]);
-        scores.appendChild(scoreEl);
-    }
-}
-
-function clearHighScore() {
-    window.localStorage.removeItem("storagedScores");
-    scores.innerHTML= "All scores cleared!";
-}
 
 function renderQuestion() {
     if (currentQuestionIndex < 5) {
@@ -225,10 +143,91 @@ function renderQuestion() {
             // currentQuestionIndex++;
         })
     }
-    else{
+    else {
         allDone();
     }
 }
+
+
+function allDone() {
+    formEl.style.display = "block";
+    clearInterval(gameTimerInterval);
+    timerEl.textContent = "Time:0";
+    console.log("quiz finished");
+    questionOptionsEl.innerHTML = "";
+    questionTitleEl.textContent = "All done!"
+    //Min score set to 0.
+    if (totalTime < 0) {
+        totalTime = 0
+    }
+    introEl.textContent = "Your final socre is " + totalTime + "/100.";
+    introEl.style.display = "block";
+}
+
+function submitScore(event) {
+    event.preventDefault();
+
+    goBackButton.style.display = "block";
+    clearScoreButton.style.display = "block";
+
+    console.log("clicked submit button.");
+    questionTitleEl.innerHTML = "Hightscores";
+    introEl.innerHTML = "";
+
+    userInitial = initialInput.value.trim();
+    console.log(userInitial);
+
+    saveScore();
+    showScore();
+}
+
+
+function saveScore() {
+    var savedScore = localStorage.getItem("storagedScores");
+    var savedScoreArray;
+    if (savedScore === null) {
+        savedScoreArray = [];
+    }
+    else {
+        savedScoreArray = JSON.parse(savedScore);
+
+    }
+    var currentScore = {
+        initial: initialInput.value.trim(),
+        score: totalTime
+    }
+    console.log(currentScore);
+    console.log(savedScoreArray);
+    savedScoreArray.push(currentScore);
+    var savedScoreArrayString = JSON.stringify(savedScoreArray);
+    window.localStorage.setItem("storagedScores", savedScoreArrayString);
+    initialInput.value = "";
+}
+
+function showScore() {
+    scores.style.display = "block"
+
+    var savedScore = localStorage.getItem("storagedScores");
+    var savedScoreArray;
+    savedScoreArray = JSON.parse(savedScore);
+    formEl.style.display = "none";
+    // scores.innerHTML= "";
+    console.log("showScore");
+    console.log(savedScoreArray);
+    for (var i = 0; i < savedScoreArray.length; i++) {
+        var scoreEl = document.createElement("li");
+        scoreEl.textContent = savedScoreArray[i].initial + ": score " + savedScoreArray[i].score;
+        console.log(scoreEl);
+        console.log(savedScoreArray[i]);
+        scores.appendChild(scoreEl);
+    }
+}
+
+function clearHighScore() {
+    window.localStorage.removeItem("storagedScores");
+    scores.innerHTML = "All scores cleared!";
+}
+
 
 start();
 

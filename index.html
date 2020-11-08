@@ -23,11 +23,20 @@
             <p id="intro" style= "text-align: center">try to answer the following code-related questions with the time limit. Keep in mind that incorrect answer will penalize your scoretime by ten seconds!</p>
         </div>
         <hr>
-        <form id="form">
+        <button class= "mx-auto"id = "goback" style= "text-align:center; align-self: center;">Go back</button>
+        <button class= "mx-auto"id = "clearscores" style= "text-align:center; align-self: center;">Clear high score</button>
+        
+        <form id="form" style="text-align: center">
             <label for="todo-text">Enter inisials</label>
-            <input type="text" placeholder="What needs to be done?" name="todo-text" id="todo-text" />
+            <input type="text" name="todo-text" id="inputinitial"/>
             <button id = "submit">submit</button>
         </form>
+
+        <ol id="scores">
+
+        </ol>
+        <!-- placeholder="What needs to be done?" -->
+
         <!-- <form class="form-inline">
             <div class="form-group mb-2">
               <label for="staticEmail2" class="sr-only">Email</label>

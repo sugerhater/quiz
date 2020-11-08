@@ -23,11 +23,28 @@
             <p id="intro" style= "text-align: center">try to answer the following code-related questions with the time limit. Keep in mind that incorrect answer will penalize your scoretime by ten seconds!</p>
         </div>
         <hr>
+        <form id="form">
+            <label for="todo-text">Enter inisials</label>
+            <input type="text" placeholder="What needs to be done?" name="todo-text" id="todo-text" />
+            <button id = "submit">submit</button>
+        </form>
+        <!-- <form class="form-inline">
+            <div class="form-group mb-2">
+              <label for="staticEmail2" class="sr-only">Email</label>
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="inputPassword2" class="sr-only">Password</label>
+              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+          </form> -->
+
         <button class= "mx-auto"id = "start" style= "text-align:center; align-self: center;">Start Quiz</button>
 
         <!-- options part -->
         <div class="row">
-            <ol class="col-sm-12 col-lg-11 bg-secondary mb-4" id="question-options">
+            <ol class="col-sm-12 col-lg-11 mb-4" id="question-options">
                 <!-- <button>start quiz!</button> -->
                 <!-- <li><button  id = "option1"> 11111111 </button></li>
             <li class = "btn btn-primary mr-auto" id = "option1">1</li>

@@ -36,7 +36,8 @@ var questions = [{
 }
 
 ];
-
+var formEl = document.getElementById("form");
+formEl.style.display="none";
 var choices = [["strings", "booleans", "alerts", "numbers"],
 ["quotes", "curly brackets", "parenthesis", "square brackets"],
 ["numbers and strings", "other arrays", "booleans", "all of the above"],
@@ -49,7 +50,7 @@ var totalTime = 100;
 var gameTimerInterval;
 var startButton = document.getElementById("start");
 var timerEl = document.getElementById("timer");
-
+var submitButton = document.getElementById("submit");
 
 function start() {
     console.log("start")
@@ -66,6 +67,7 @@ function startQuiz() {
     // currentQuestionIndex = 0;
     introEl.style.display = "none";
     startButton.style.display = "none";
+    formEl.style.display= "none";
     totalTime= 100;
     clearInterval(gameTimerInterval);
     gameTimerInterval = setInterval(function(){
@@ -97,13 +99,28 @@ function startQuiz() {
 }
 
 function allDone() {
+    formEl.style.display= "block";
     clearInterval(gameTimerInterval);
     timerEl.textContent = "Time:0";
     console.log("quiz finished");
     questionOptionsEl.innerHTML = "";
     questionTitleEl.textContent = "All done!"
-    introEl.textContent = "Your final socre is"+totalTime;
+    //Min score set to 0.
+    if (totalTime<0){
+        totalTime = 0
+    }
+    introEl.textContent = "Your final socre is " + totalTime + "/100.";
     introEl.style.display = "block";
+
+}
+
+submitButton.addEventListener("click", submitScore);
+
+function submitScore(event) {
+    event.preventDefault();
+    console.log("clicked submit button.");
+    questionTitleEl.innerHTML="Hightscores";
+
 }
 
 function clearHighScore() {
@@ -135,9 +152,7 @@ function renderQuestion() {
     else{
         allDone();
     }
-
 }
-
 
 start();
 

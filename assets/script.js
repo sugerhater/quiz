@@ -22,9 +22,6 @@ questionOptionsEl.addEventListener("click", function (event) {
     }
 })
 
-// var highScoreButton = document.getElementById("highscore");
-// highScoreButton.addEventListener("click",showScore);
-
 var headerEl = document.getElementsByTagName("header");
 var questions = [{
     title: "Commonly used data types DO NOT include:",
@@ -121,7 +118,7 @@ function startQuiz() {
 
 
 function renderQuestion() {
-    if (currentQuestionIndex < 5) {
+    if (currentQuestionIndex < questions.length) {
         console.log("renderQuestion");
         // set the title
         // clear the old options if any

@@ -9,4 +9,7 @@ body {
      max-width:760px; 
      /* text-align: center; */
  }
- 
+
+button{
+    margin-bottom: 1rem;
+}
